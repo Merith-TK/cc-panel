@@ -8,7 +8,9 @@ local cur_y = 1
 
 local function getTime()
 	local time = textutils.formatTime(os.time("local"))
-	return time
+	local date = os.date("%b-%d-%y")
+	local output = " " .. date .. string.rep(" ", (max_w - #date - #time - 2)) .. time .. " "
+	return output
 end
 
 
@@ -28,7 +30,7 @@ while true do
 	cur_x = 1
 	cur_y = 1
 	term.setCursorPos(cur_x, cur_y)
-	drawText("center", getTime())
+	drawText("", getTime())
 	drawText("center", "#---------#---------#")
 	os.sleep(0.15)
 end
