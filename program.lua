@@ -9,7 +9,7 @@ local cur_y = 1
 local function getTime()
 	local time = textutils.formatTime(os.time("local"))
 	local date = os.date("%b-%d-%y")
-	local output = " " .. date .. string.rep(" ", (max_w - #date - #time - 2)) .. time .. " "
+	local output = " " .. date .. string.rep(" ", (max_w - #date - #time - 2)) .. time
 	return output
 end
 
