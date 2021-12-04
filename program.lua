@@ -17,20 +17,29 @@ end
 local function drawText(position, text)
 	if position == "right" then
 		text = string.rep(" ", max_w - #text ) .. text	
+		term.write(text)
 	elseif position == "center" then
 		text = string.rep(" ", (max_w - #text)/2 ) .. text
+		term.write(text)
+	else
+		term.write(position .. text)
+
 	end
 	term.write(text)
 	cur_y = cur_y + 1
 	term.setCursorPos(cur_x, cur_y)
 end
 
-while true do
-	term.clear()
-	cur_x = 1
-	cur_y = 1
-	term.setCursorPos(cur_x, cur_y)
-	drawText("", getTime())
-	drawText("center", "#---------#---------#")
-	os.sleep(0.15)
+local function mainLoop()
+	while true do
+		term.clear()
+		cur_x = 1
+		cur_y = 1
+		term.setCursorPos(cur_x, cur_y)
+		drawText("", getTime())
+		drawText("center", "#---------#---------#")
+		os.sleep(0.15)
+	end
 end
+
+parallel.waitForAny(mainLoop)
