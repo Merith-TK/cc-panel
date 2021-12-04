@@ -1,5 +1,5 @@
 ### How to use
-The program is meant to be ran on a piZero using [this hat]() and the periphery lua plugin
+The program is meant to be ran on a piZero using [this hat](https://www.amazon.com/dp/B077Z7DWW1) and the periphery lua plugin
 
 * for pi
 	1. you need to install craftos, which involves compiling from source code.
