@@ -101,7 +101,11 @@ end
 
 -- main function where the main program will be running
 local function main()
-	shell.run("start.lua")
+	if fs.exists(shell.resolve("debug.lua"))then
+		shell.run("debug.lua")
+	else
+		shell.run("start.lua")
+	end
 end
 
 -- Async execution, waitForAny() takes "function", NOT "function()"
