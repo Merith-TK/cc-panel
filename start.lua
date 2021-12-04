@@ -31,7 +31,10 @@ end
 
 
 -- init shit
-shell.run("clear")
+term.showMouse(false)
+term.clear()
+term.write("loading bigfont")
+_G.bigfont = loadfile("bigfont",_ENV)()
 
 -- Thhis makes sure that the key is not repeated when pressed,
 -- dont want a single click to send fifty events
@@ -86,13 +89,13 @@ local function keyEvent()
 	end
 end
 
-local function  killMe()
-	while true do
+local function suicide()
+	local suicide = false
+	while not suicide do
 		local _, key = os.pullEvent("key")
 		if key == keys.space then
-			break
+			suicide = true
 		end
-		os.sleep()
 	end
 end
 
@@ -101,9 +104,13 @@ local function main()
 	shell.run("/workspace/cc-panel/program.lua")
 end
 
+local function debugmain()
+	shell.run("debugstart.lua")
+end
 -- Async execution, waitForAny() takes "function", NOT "function()"
 -- as arguements and runs them, waiting for any of them to exit before
 -- exiting itself, allowing it to finnish an continue the code.
 -- waitForAll is the same thing, but it waits for all functions
-parallel.waitForAny(main, keyEvent, killMe)
+parallel.waitForAny(main, keyEvent, suicide)
+--parallel.waitForAny(debugmain, keyEvent, suicide)
 closeGpio()

@@ -1,10 +1,11 @@
-term.showMouse(false)
 --shell.run("shell")
 local max_w = 21
 local max_h = 14
 
 local cur_x = 1
 local cur_y = 1
+
+local taskRunning = false
 
 local function getTime()
 	local time = textutils.formatTime(os.time("local"))
@@ -23,14 +24,33 @@ local function drawText(position, text)
 		term.write(text)
 	else
 		term.write(position .. text)
-
 	end
-	term.write(text)
 	cur_y = cur_y + 1
 	term.setCursorPos(cur_x, cur_y)
 end
 
-local function mainLoop()
+local function runProgram(program)
+	taskRunning = true
+	if type(program) == "function" then
+		program()
+	elseif type(program) == "string" then
+		shell.run(program)
+	end
+	taskRunning = false
+end
+
+local function menu()
+	while true do
+		local ev, key = os.pullEvent("key")
+		if key == keys.numPad1 then
+			runProgram("worm")
+		elseif key == keys.numPad2 then
+			runProgram("watch.lua")
+		end
+	end
+end
+
+local function main()
 	while true do
 		term.clear()
 		cur_x = 1
@@ -38,8 +58,13 @@ local function mainLoop()
 		term.setCursorPos(cur_x, cur_y)
 		drawText("", getTime())
 		drawText("center", "#---------#---------#")
+		drawText("left", "[1] worm")
+		drawText("left", "[2] clock")
 		os.sleep(0.15)
+		while taskRunning do
+			os.sleep()
+		end
 	end
 end
 
-parallel.waitForAny(mainLoop)
+parallel.waitForAny(main, menu)
