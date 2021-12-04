@@ -4,6 +4,8 @@ local max_h = 4
 local cur_x = 1
 local cur_y = 1
 
+local taskRunning = false
+
 local function drawText(position, text)
 	if position == "right" then
 		text = string.rep(" ", max_w - #text ) .. text	
@@ -36,20 +38,36 @@ local function main()
 		drawText("center", " ")
 		drawText("center", getDate())
 		os.sleep(0.5)
+		while taskRunning do
+			os.sleep()
+		end
 	end
 end
 
 
-local function suicide()
-	local suicide = false
-	while not suicide do
+local function runProgram(program)
+	taskRunning = true
+	if type(program) == "function" then
+		program()
+	elseif type(program) == "string" then
+		shell.run(program)
+	end
+	taskRunning = false
+end
+
+local function menu()
+	local runmenu = false
+	while not runmenu do
 		local _, key = os.pullEvent("key")
 		if key == keys.enter then
-			suicide = true
+			runProgram("menu/start.lua")
+		end
+		while taskRunning do
+			os.sleep()
 		end
 	end
 end
 
 
 term.clear()
-parallel.waitForAny(main, suicide)
+parallel.waitForAny(main, menu)

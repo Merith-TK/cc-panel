@@ -101,12 +101,9 @@ end
 
 -- main function where the main program will be running
 local function main()
-	shell.run("program.lua")
+	shell.run("watch.lua")
 end
 
-local function debugmain()
-	shell.run("debugstart.lua")
-end
 -- Async execution, waitForAny() takes "function", NOT "function()"
 -- as arguements and runs them, waiting for any of them to exit before
 -- exiting itself, allowing it to finnish an continue the code.

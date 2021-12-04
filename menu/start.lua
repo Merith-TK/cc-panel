@@ -18,7 +18,13 @@ Play some games @games
 
 m:addScreen("games",
 [[
-Play worm @worm    
+
+Play worm @worm
+
+
+
+
+[Back] @main
 ]])
 
 m:addFunc("worm", shell.run, "worm")
