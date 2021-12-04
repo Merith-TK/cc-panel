@@ -113,5 +113,4 @@ end
 -- exiting itself, allowing it to finnish an continue the code.
 -- waitForAll is the same thing, but it waits for all functions
 parallel.waitForAny(main, keyEvent, suicide)
---parallel.waitForAny(debugmain, keyEvent, suicide)
 closeGpio()
