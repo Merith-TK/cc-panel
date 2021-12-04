@@ -46,6 +46,8 @@ local function menu()
 			runProgram("worm")
 		elseif key == keys.numPad2 then
 			runProgram("watch.lua")
+		elseif key == keys.numPad3 then
+			runProgram("menu/start.lua")
 		end
 	end
 end
@@ -58,8 +60,9 @@ local function main()
 		term.setCursorPos(cur_x, cur_y)
 		drawText("", getTime())
 		drawText("center", "#---------#---------#")
-		drawText("left", "[1] worm")
-		drawText("left", "[2] clock")
+		drawText("", "[1] worm")
+		drawText("", "[2] clock")
+		drawText("", "[3] menu-test")
 		os.sleep(0.15)
 		while taskRunning do
 			os.sleep()

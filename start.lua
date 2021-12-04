@@ -101,7 +101,7 @@ end
 
 -- main function where the main program will be running
 local function main()
-	shell.run("/workspace/cc-panel/program.lua")
+	shell.run("program.lua")
 end
 
 local function debugmain()
